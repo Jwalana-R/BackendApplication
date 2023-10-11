@@ -1,0 +1,68 @@
+openapi: 3.0.3
+info:
+  title: Backend Docs - OpenAPI 3.0
+  version: 0.0.1
+servers:
+  - url: https://localhost.com/api
+tags:
+  - name: user
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - user
+      summary: Signup user and returns auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Successfully created the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authtoken:
+                    type: string
+                    description: JWT Token'
+        '500':
+          description: Could not create the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error Message
+                    example: "Email address could not be verified."
+  
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        uid:
+          type: string
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: James
+        password:
+          type: string
+          description: 'This will not be saved in database'
+        email:
+          type: string
+          example: john@email.com
+        image:
+          type: string
+          description: Image link
+        created_at:
+          type: string
+        updated_at:
+          type: string
